@@ -1,5 +1,5 @@
 const fs = require('fs');
-const {checkFileExistence} = require("../checks/filecheck");
+const {checkFileExistence} = require("../checks/file-check");
 let entirePathToVersion;
 
 function getInstalledVersion(appDataPath) {

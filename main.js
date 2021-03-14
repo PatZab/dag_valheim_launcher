@@ -1,8 +1,8 @@
 // Modules
 const {app, BrowserWindow} = require('electron')
 const path = require('path');
-const versionCheck = require('./mod-updater/versioncheck')
-const downloadMods = require('./mod-updater/moddownload');
+const versionCheck = require('./mod-updater/version-check')
+const downloadMods = require('./mod-updater/mod-download');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
