@@ -68,7 +68,6 @@ function createWindow() {
             console.log("Ready to launch Valheim!")
             contents.send("enable-launch-button", "Launch button enabled!");
             contents.send("display-mods-version", getInstalledModsVersion(appDataPath));
-
         });
     })
 
