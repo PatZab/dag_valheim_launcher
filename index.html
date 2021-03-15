@@ -2,19 +2,16 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Die Anstalt Gaming: Valheim Launcher</title>
+    <title>Die Anstalt Gaming: Valheim Launcher v0.0.1</title>
     <meta content="script-src 'self' 'unsafe-inline';" http-equiv="Content-Security-Policy"/>
 </head>
 <body style="background-color: white">
-
-<form action="./preload.js">
-    <input type="text" id="path-to-valheim" name="path-to-valheim">
-    <input type="submit" value="Submit">
-</form>
-
+<h1>Valheim Launcher</h1>
+<button id="set-path-to-valheim">Set Valheim Install Directory</button>
 <button id="start-valheim">Start Valheim</button>
-<script defer>
+<script>
     window.api.startGame();
+    window.api.sendValheimPath();
 </script>
 
 </body>

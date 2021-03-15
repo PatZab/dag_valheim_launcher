@@ -3,6 +3,7 @@ const {checkFileExistence} = require("../checks/file-check");
 let entirePathToVersion;
 
 function getInstalledVersion(appDataPath) {
+
     entirePathToVersion = `${appDataPath}\\dag_version.txt`;
     if (checkFileExistence(entirePathToVersion)) {
         let installedVersion = fs.readFileSync(entirePathToVersion);
@@ -21,7 +22,4 @@ function createVersionFile(pathToVersionFile) {
     fs.writeFileSync(pathToVersionFile, "not installed");
 }
 
-
-
-module.exports.getInstalledVersion = getInstalledVersion;
-module.exports.writeVersionToFile = writeVersionToFile;
+module.exports = {getInstalledVersion, writeVersionToFile}
