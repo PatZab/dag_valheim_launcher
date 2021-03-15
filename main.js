@@ -1,29 +1,17 @@
 // Modules
-const {app, BrowserWindow, Menu, dialog, ipcMain} = require('electron')
+const {app, BrowserWindow, dialog, ipcMain} = require('electron')
 const windowStateKeeper = require('electron-window-state');
 const path = require('path');
-const versionCheck = require('./mod-updater/version-check')
-const downloadMods = require('./mod-updater/mod-download');
-const {writeInstallPath} = require('./directory-actions/vh-install-dir');
+const {checkInstallPathFile, openInstallPath, getInstallPath} = require('./directory-actions/vh-install-dir');
+const {checkModsVersion, getInstalledModsVersion} = require('./updater/mods/mods-version');
+const {launchValheim} = require('./launcher/game-launcher');
+
+const appDataPath = app.getPath('userData');
+const homePath = app.getPath('home');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
-
-// let appDataPath = app.getPath('userData');
-// checkingFile(appDataPath);
-
-async function startUp() {
-    let modsUpToDate = await versionCheck(app.getPath('userData'));
-    if (modsUpToDate) {
-        createWindow();
-    } else {
-        await downloadMods();
-        createWindow();
-    }
-
-
-}
+let mainWindow;
 
 // Create a new BrowserWindow when `app` is ready
 function createWindow() {
@@ -33,7 +21,6 @@ function createWindow() {
         defaultWidth: 1000,
     })
 
-    console.log("Creating Window!");
     mainWindow = new BrowserWindow({
         width: winState.width,
         height: winState.height,
@@ -46,42 +33,63 @@ function createWindow() {
         alwaysOnTop: true
     })
 
+    const contents = mainWindow.webContents;
+
+    console.log("Main window created!")
+
     // Load index.html into the new BrowserWindow
     mainWindow.loadFile('index.html')
 
     winState.manage(mainWindow);
 
-
-    // dialog.showOpenDialog(mainWindow, {
-    //     defaultPath: "C:\\",
-    //     properties: ["openDirectory"]
-    // }).then((result) => {
-    //     console.log(result)
-    // });
     // Open DevTools - Remove for PRODUCTION!
-    mainWindow.webContents.openDevTools();
+    contents.openDevTools();
 
+    const installMods = async () => {
+        if (!checkInstallPathFile(appDataPath)) {
+            const options = ['Set Valheim Install Directory']
+            await dialog.showMessageBox(mainWindow, {
+                title: "No Install Directory Set!",
+                message: "Please set the Valheim install directory!",
+                detail: "Example: C:\\Program Files (x86)\\Steam\\steamapps\\common\\Valheim",
+                buttons: options
+            });
+            console.log("Directory Notification.");
+            await openInstallPath(mainWindow, homePath);
+        }
+        await checkModsVersion(appDataPath, getInstallPath());
+        console.log("Yeah")
+    };
+
+    contents.on('did-finish-load', () => {
+        console.log("Did finish load!")
+        installMods().then(() => {
+            console.log("Everything is up-to-date!");
+            console.log("Ready to launch Valheim!")
+            contents.send("enable-launch-button", "Launch button enabled!");
+            contents.send("display-mods-version", getInstalledModsVersion(appDataPath));
+
+        });
+    })
 
     // Listen for window being closed
     mainWindow.on('closed', () => {
         mainWindow = null
     })
+
 }
 
 ipcMain.on("valheim-path-set", (e) => {
-    dialog.showOpenDialog(mainWindow, {
-        defaultPath: "C:\\",
-        properties: ["openDirectory"]
-    }).then((result) => {
-        console.log(result);
-        if (!result.canceled) {
-            writeInstallPath(app.getPath("userData"), result.filePaths[0]);
-        }
-    });
+    openInstallPath(mainWindow, homePath);
 });
 
+ipcMain.on('launch-game', (event => {
+    launchValheim(getInstallPath());
+    // app.quit();
+}));
+
 // Electron `app` is ready
-app.on('ready', startUp);
+app.on('ready', createWindow);
 
 // Quit when all windows are closed - (Not macOS - Darwin)
 app.on('window-all-closed', () => {

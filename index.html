@@ -7,11 +7,15 @@
 </head>
 <body style="background-color: white">
 <h1>Valheim Launcher</h1>
+<p>Mods version: <span id="version-number"></span></p>
+
 <button id="set-path-to-valheim">Set Valheim Install Directory</button>
-<button id="start-valheim">Start Valheim</button>
+<button disabled id="start-valheim">Launch Valheim</button>
 <script>
+    window.api.enableLaunchButton();
     window.api.startGame();
     window.api.sendValheimPath();
+    window.api.displayInstalledModsVersion();
 </script>
 
 </body>

@@ -1,13 +1,13 @@
 const fs = require('fs');
 
-function checkFileExistence(pathToFile) {
+const checkFileExistence = pathToFile => {
     try {
         fs.accessSync(pathToFile, fs.constants.F_OK);
         return true;
     } catch (e) {
-        console.error(pathToFile);
+        console.error(e);
         return false;
     }
-}
+};
 
-module.exports.checkFileExistence = checkFileExistence;
+module.exports = {checkFileExistence};

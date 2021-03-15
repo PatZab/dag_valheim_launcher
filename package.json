@@ -12,15 +12,14 @@
   "keywords": [],
   "license": "ISC",
   "devDependencies": {
-    "@octokit/request": "^5.4.14",
-    "electron": "^12.0.1",
-    "electron-window-state": "^5.0.3",
     "nodemon": "^2.0.7"
   },
   "dependencies": {
     "@octokit/rest": "^18.3.5",
     "adm-zip": "^0.5.4",
     "custom-electron-titlebar": "^3.2.6",
+    "electron": "^12.0.0",
+    "electron-window-state": "^5.0.3",
     "superagent": "^6.1.0"
   }
 }

@@ -1,29 +1,46 @@
 const fs = require('fs');
-// const {checkFileExistence} = require('../checks/file-check');
+const {dialog} = require('electron');
+const {checkFileExistence} = require('../checks/file-existing-check')
+const dirFileName = "valheim_install_dir.txt";
+let dirFilePath;
 
-const writeInstallPath = (appDataPath, pathToValheimDir) => {
-    let pathToFile = `${appDataPath}\\valheim_install_dir.txt`
+const checkInstallPathFile = (appDataPath) => {
+    dirFilePath = `${appDataPath}\\${dirFileName}`;
+    return checkFileExistence(dirFilePath);
+};
+
+const setInstallPath = (pathToValheimDir) => {
+
     if (pathToValheimDir) {
         try {
-            fs.writeFileSync(pathToFile, pathToValheimDir);
+            fs.writeFileSync(dirFilePath, pathToValheimDir);
         } catch (e) {
             console.error(e);
         }
-    } else {
-        return
     }
 };
 
-const readInstallPath = appDataPath => {
-    let pathToFile = `${appDataPath}\\valheim_install_dir.txt`
+const getInstallPath = () => {
     try {
-        let pathToValheimDir = fs.readFileSync(pathToFile);
-        console.log(pathToValheimDir);
+        return fs.readFileSync(dirFilePath);
     } catch (e) {
         console.error(e);
     }
-
 };
 
-module.exports = {writeInstallPath, readInstallPath};
+const openInstallPath = async (mainWindow, homePath) => {
+
+    let result = await dialog.showOpenDialog(mainWindow, {
+        defaultPath: homePath,
+        properties: ["openDirectory"]
+    })
+
+    console.log("Opening dialog");
+
+    if (!result.canceled) {
+        setInstallPath(result.filePaths[0]);
+        return getInstallPath()
+    }
+};
+module.exports = {checkInstallPathFile, setInstallPath, getInstallPath, openInstallPath};
 
