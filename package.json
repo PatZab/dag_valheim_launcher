@@ -3,11 +3,14 @@
   "version": "0.0.1",
   "author": "PatZab",
   "description": "Die Anstalt Gaming Valheim Launcher",
+  "repository": "https://github.com/PatZab/dag_valheim_launcher",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "watch": "nodemon --exec electron ."
+    "watch": "nodemon --exec electron .",
+    "win-cert" : "electron-builder create-self-signed-cert -p patzab",
+    "build": "electron-builder -w"
   },
   "keywords": [],
   "license": "ISC",
@@ -26,8 +29,12 @@
   "build": {
     "appId": "de.patzab.dag-vh-launcher",
     "productName": "DAG Valheim Launcher",
+
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "certificateFile": "private/patzab.pfx",
+      "certificatePassword": "",
+      "publisherName": "PatZab"
     },
     "nsis": {
       "oneClick": false,

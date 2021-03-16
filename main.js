@@ -9,9 +9,8 @@ const {
     getLatestModsRelease,
     writeVersionToFile
 } = require('./updater/mods/mods-version');
-const {downloadMods,downloadLatestMods} = require('./updater/mods/mods-downloader');
+const {downloadLatestMods} = require('./updater/mods/mods-downloader');
 const {launchValheim} = require('./launcher/game-launcher');
-const electronDL = require('electron-dl');
 
 const appDataPath = app.getPath('userData');
 const homePath = app.getPath('home');
@@ -26,21 +25,23 @@ let vhInstallDir;
 // Create a new BrowserWindow when `app` is ready
 function createWindow() {
 
-    let winState = windowStateKeeper({
-        defaultHeight: 800,
-        defaultWidth: 1000,
-    })
+    // let winState = windowStateKeeper({
+    //     defaultHeight: 200,
+    //     defaultWidth: 100,
+    // })
 
     mainWindow = new BrowserWindow({
-        width: winState.width,
-        height: winState.height,
-        x: winState.x,
-        y: winState.y,
+        width: 450,/*winState.defaultWidth,*/
+        height: 300,/*winState.defaultHeight,*/
+        // x: winState.x,
+        // y: winState.y,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true,
         },
-        alwaysOnTop: true
+        alwaysOnTop: true,
+        resizable: false,
+        icon: ".\\build\\icon.ico"
     })
 
     const contents = mainWindow.webContents;
@@ -50,10 +51,12 @@ function createWindow() {
     // Load index.html into the new BrowserWindow
     mainWindow.loadFile('index.html')
 
-    winState.manage(mainWindow);
+    // winState.manage(mainWindow);
 
     // Open DevTools - Remove for PRODUCTION!
     // contents.openDevTools();
+
+    console.log(app.getLocale())
 
     contents.on('did-finish-load', async () => {
 
