@@ -22,7 +22,8 @@ const setInstallPath = (pathToValheimDir) => {
 
 const getInstallPath = () => {
     try {
-        return fs.readFileSync(dirFilePath);
+        return fs.readFileSync(dirFilePath).toString();
+
     } catch (e) {
         console.error(e);
     }
@@ -30,16 +31,17 @@ const getInstallPath = () => {
 
 const openInstallPath = async (mainWindow, homePath) => {
 
+    console.log("Opening dialog");
+
     let result = await dialog.showOpenDialog(mainWindow, {
         defaultPath: homePath,
         properties: ["openDirectory"]
     })
 
-    console.log("Opening dialog");
 
     if (!result.canceled) {
         setInstallPath(result.filePaths[0]);
-        return getInstallPath()
+        // return getInstallPath()
     }
 };
 module.exports = {checkInstallPathFile, setInstallPath, getInstallPath, openInstallPath};

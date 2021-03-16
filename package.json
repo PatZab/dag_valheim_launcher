@@ -12,14 +12,28 @@
   "keywords": [],
   "license": "ISC",
   "devDependencies": {
+    "electron": "^12.0.0",
     "nodemon": "^2.0.7"
   },
   "dependencies": {
     "@octokit/rest": "^18.3.5",
     "adm-zip": "^0.5.4",
     "custom-electron-titlebar": "^3.2.6",
-    "electron": "^12.0.0",
+    "electron-dl": "^3.2.1",
     "electron-window-state": "^5.0.3",
     "superagent": "^6.1.0"
+  },
+  "build": {
+    "appId": "de.patzab.dag-vh-launcher",
+    "productName": "DAG Valheim Launcher",
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "createDesktopShortcut": true,
+      "allowToChangeInstallationDirectory": true
+    }
   }
+
 }

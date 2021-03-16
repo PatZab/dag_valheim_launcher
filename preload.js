@@ -24,5 +24,17 @@ contextBridge.exposeInMainWorld("api", {
         ipcRenderer.on("display-mods-version", (event, args) => {
             document.getElementById("version-number").innerHTML = args;
         });
+    },
+
+    displayLatestRelease() {
+        ipcRenderer.on("display-latest-release", (event, args) => {
+            document.getElementById("release-version").innerHTML = args;
+        });
+    },
+
+    displayVhDir() {
+        ipcRenderer.on('display-vh-dir', (event, args) => {
+            document.getElementById('vh-dir').innerHTML = args;
+        });
     }
 });

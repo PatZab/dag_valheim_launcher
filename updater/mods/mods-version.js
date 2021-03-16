@@ -4,12 +4,10 @@ const {checkFileExistence} = require("../../checks/file-existing-check");
 const {downloadMods} = require('./mods-downloader');
 
 let entirePathToVersion;
-let installedModsVersion;
-let latestModsRelease;
 
-const writeVersionToFile = () => {
+const writeVersionToFile = (latestModsRelease) => {
     fs.writeFileSync(entirePathToVersion, latestModsRelease);
-    console.log("Written version to file");
+    console.log(`Written version ${latestModsRelease} to file`);
 };
 
 const createVersionFile = () => {
@@ -23,7 +21,7 @@ const getInstalledModsVersion = appDataPath => {
     entirePathToVersion = `${appDataPath}\\dag_mods_version.txt`;
     if (checkFileExistence(entirePathToVersion)) {
         let installedVersion = fs.readFileSync(entirePathToVersion);
-        console.log("Got installed version: " + installedVersion.toString());
+        console.log("Installed version: " + installedVersion.toString());
         return installedVersion.toString();
     } else {
         createVersionFile();
@@ -31,12 +29,13 @@ const getInstalledModsVersion = appDataPath => {
     }
 };
 
-const checkModsVersion = async (appDataPath, vhInstallDir) => {
-    installedModsVersion = getInstalledModsVersion(appDataPath);
-    latestModsRelease = await getLatestModsRelease();
+const checkModsVersion = (installedModsVersion, latestModsRelease) => {
     if (!(installedModsVersion === latestModsRelease)) {
-        await downloadMods(vhInstallDir, latestModsRelease);
-        writeVersionToFile()
+        console.log("Mods versions are not equal.");
+        return false;
+    } else {
+        console.log("Mods versions are equal.");
+        return true;
     }
 };
 
@@ -48,7 +47,7 @@ const getLatestModsRelease = async () => {
             repo: 'Die_Anstalt_Gaming_Valheim'
         }
     );
-    console.log("Got latest mods version: " + latestRelease.data.tag_name);
+    console.log("Latest Mods Release: " + latestRelease.data.tag_name);
     return latestRelease.data.tag_name;
 }
 
