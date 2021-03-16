@@ -11,6 +11,7 @@ const {
 } = require('./updater/mods/mods-version');
 const {downloadLatestMods} = require('./updater/mods/mods-downloader');
 const {launchValheim} = require('./launcher/game-launcher');
+const updater = require('./updater/app/updater');
 
 const appDataPath = app.getPath('userData');
 const homePath = app.getPath('home');
@@ -23,7 +24,10 @@ let latestModsRelease;
 let vhInstallDir;
 
 // Create a new BrowserWindow when `app` is ready
-function createWindow() {
+async function createWindow() {
+
+    //Check for app updates after 1 second
+    updater()
 
     // let winState = windowStateKeeper({
     //     defaultHeight: 200,
@@ -39,7 +43,7 @@ function createWindow() {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true,
         },
-        alwaysOnTop: true,
+        // alwaysOnTop: true,
         resizable: false,
         icon: ".\\build\\icon.ico"
     })
