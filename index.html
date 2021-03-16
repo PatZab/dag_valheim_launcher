@@ -2,19 +2,25 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Die Anstalt Gaming: Valheim Launcher</title>
+    <title>Die Anstalt Gaming: Valheim Launcher v0.0.1</title>
     <meta content="script-src 'self' 'unsafe-inline';" http-equiv="Content-Security-Policy"/>
 </head>
 <body style="background-color: white">
+<h1>Valheim Launcher</h1>
+<p>Latest Mods Release: <span id = "release-version"></span></p>
+<p>Installed Mods Version: <span id="version-number"></span></p>
+<p>Valheim Install Directory: <span id="vh-dir"></span></p>
 
-<form action="./preload.js">
-    <input type="text" id="path-to-valheim" name="path-to-valheim">
-    <input type="submit" value="Submit">
-</form>
-
-<button id="start-valheim">Start Valheim</button>
-<script defer>
+<button id="set-path-to-valheim">Set Valheim Install Directory</button>
+<button disabled id="start-valheim">Launch Valheim</button>
+<script>
+    window.api.enableLaunchButton();
     window.api.startGame();
+    window.api.sendValheimPath();
+    window.api.displayInstalledModsVersion();
+    window.api.displayLatestRelease();
+    window.api.displayVhDir();
+
 </script>
 
 </body>
