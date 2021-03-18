@@ -35,7 +35,7 @@ header #vh-logo {
 
 .info {
     width: 300px;
-    height: 120px;
+    height: 140px;
     background: rgba(0, 0, 0, 0.6);
     color: lightgrey;
     margin-left: 0.75rem;
@@ -48,13 +48,28 @@ header #vh-logo {
     color: deepskyblue;
 }
 
+
+
 .info div {
     padding: 0.3rem 0 0 1rem;
     font-family: 'Blinker', sans-serif;
 }
 
+.info p {
+    padding-top: 5px;
+}
+
+.info hr {
+    background-color: slategrey;
+    border: none;
+    height: 1px
+;
+}
+
+
 #version-number {
     float: right;
+    color: limegreen;
 
 }
 
@@ -64,10 +79,13 @@ header #vh-logo {
 }
 
 #vh-dir {
+    user-select: text;
     padding-left: 0.5rem;
     color: limegreen;
     display: block;
-    float: right;
+    /*float: right;*/
+    font-size: 0.9rem;
+    -webkit-app-region: none;
 
 }
 
@@ -94,6 +112,11 @@ header #vh-logo {
     font-size: 1.2rem;
 }
 
+#start-valheim:hover {
+    background-color: forestgreen;
+    /*color: black;*/
+}
+
 #quit-app {
     -webkit-app-region: none;
     position: absolute;
@@ -107,6 +130,10 @@ header #vh-logo {
     font-weight: bold;
 }
 
+#quit-app:hover {
+    background-color: darkorange;
+}
+
 #set-path-to-valheim {
     -webkit-app-region: none;
     border: none;
@@ -116,7 +143,25 @@ header #vh-logo {
     left: 15px;
     top: -5px;
     font-family: 'Blinker', sans-serif;
-    background-color: slategrey;
+    background-color: darkslateblue;
     color: lightgrey;
+}
+
+#set-path-to-valheim:hover {
+    background-color: darkblue;
+}
+
+#app-info {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    /*background-color: white;*/
+    /*background-color: darkslategrey;*/
+}
+
+#app-version {
+    /*padding:5px 10px;*/
+    font-family: 'Blinker', sans-serif;
+    color: darkolivegreen;
 }
 

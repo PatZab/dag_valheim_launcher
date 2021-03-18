@@ -32,16 +32,6 @@ module.exports = () => {
 
     // Listen for update downloaded
     autoUpdater.on('update-downloaded', () => {
-        dialog.showMessageBox({
-            type: 'info',
-            title: 'Update ready',
-            message: 'Install and restart now?',
-            buttons: ["Install now"]
-        }).then(result => {
-            let buttonIndex = result.response;
-            if (buttonIndex === 0) {
-                autoUpdater.quitAndInstall(true, true);
-            }
-        });
+        autoUpdater.quitAndInstall(true, true);
     });
 };

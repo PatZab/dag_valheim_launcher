@@ -52,6 +52,13 @@ contextBridge.exposeInMainWorld("api", {
         });
     },
 
+    displayAppVersion() {
+        ipcRenderer.on("display-app-version", (event, args) => {
+            document.getElementById("app-version").innerHTML = args;
+        });
+    },
+
+
     quitApp() {
         document.getElementById("quit-app").addEventListener('click', ev => {
             ipcRenderer.send('quit-app');

@@ -15,7 +15,9 @@
     <h3>Information</h3>
     <div>
         <p>Installed Mods Version: <span id="version-number"></span></p>
+        <hr>
         <p>Latest Mods Release: <span id="release-version"></span></p>
+        <hr>
         <p>Valheim Install Directory:<span id="vh-dir"></span></p>
     </div>
 </div>
@@ -23,6 +25,9 @@
     <button id="set-path-to-valheim">Set Valheim Install Directory</button>
     <button disabled id="start-valheim">Checking for Updates</button>
     <button id="quit-app">Quit</button>
+</div>
+<div id="app-info">
+    <p id="app-version"></p>
 </div>
 <script hidden>
     window.api.enableLaunchButton();
@@ -33,6 +38,7 @@
     window.api.displayVhDir();
     window.api.enableUpdateButton();
     window.api.quitApp();
+    window.api.displayAppVersion();
 </script>
 
 </body>

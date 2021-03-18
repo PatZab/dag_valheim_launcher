@@ -11,6 +11,7 @@ const {
 } = require('./updater/mods/mods-version');
 const {downloadLatestMods} = require('./updater/mods/mods-downloader');
 const {launchValheim} = require('./launcher/game-launcher');
+const {getAppVersion} = require('./updater/app/app-version')
 const updater = require('./updater/app/updater');
 
 const appDataPath = app.getPath('userData');
@@ -29,16 +30,9 @@ async function createWindow() {
     //Check for app updates after 1 second
     updater()
 
-    // let winState = windowStateKeeper({
-    //     defaultHeight: 200,
-    //     defaultWidth: 100,
-    // })
-
     mainWindow = new BrowserWindow({
-        width: 600,/*winState.defaultWidth,*/
-        height: 400,/*winState.defaultHeight,*/
-        // x: winState.x,
-        // y: winState.y,
+        width: 600,
+        height: 400,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true,
@@ -56,8 +50,6 @@ async function createWindow() {
     // Load index.html into the new BrowserWindow
     // DO NOT SET AWAIT!!!!!!!!!
     mainWindow.loadFile('index.html')
-
-    // winState.manage(mainWindow);
 
     // Open DevTools - Remove for PRODUCTION!
     // contents.openDevTools();
@@ -89,6 +81,8 @@ async function createWindow() {
 
         latestModsRelease = await getLatestModsRelease();
         contents.send("display-latest-release", latestModsRelease);
+
+        contents.send("display-app-version", getAppVersion());
 
         let modsCheckValue = checkModsVersion(installedModsVersion, latestModsRelease);
 
@@ -123,8 +117,8 @@ ipcMain.on("valheim-path-set", (e) => {
 ipcMain.on('launch-game', (event => {
     launchValheim(getInstallPath());
     setTimeout(() => {
-        mainWindow.minimize();
-    }, 1000);
+        app.quit();
+    }, 3000);
 }));
 
 ipcMain.on('update-mods', event => {
