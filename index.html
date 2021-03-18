@@ -1,26 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html style="-webkit-app-region: drag;">
 <head>
     <meta charset="UTF-8">
     <title>Die Anstalt Gaming: Valheim Launcher</title>
     <meta content="script-src 'self' 'unsafe-inline';" http-equiv="Content-Security-Policy"/>
+    <link href="./style/style.css" rel="stylesheet" type="text/css">
 </head>
-<body style="background-color: white">
-<h1>Valheim Launcher</h1>
-<p>Latest Mods Release: <span id = "release-version"></span></p>
-<p>Installed Mods Version: <span id="version-number"></span></p>
-<p>Valheim Install Directory: <span id="vh-dir"></span></p>
-
-<button id="set-path-to-valheim">Set Valheim Install Directory</button>
-<button disabled id="start-valheim">Launch Valheim</button>
-<script>
+<body>
+<header>
+    <img alt="" id="dag-logo" src="./resources/images/Die%20Anstalt%20Logo.png">
+    <img alt="" id="vh-logo" src="./resources/images/valheim-logo.png">
+</header>
+<div class="info">
+    <h3>Information</h3>
+    <div>
+        <p>Installed Mods Version: <span id="version-number"></span></p>
+        <p>Latest Mods Release: <span id="release-version"></span></p>
+        <p>Valheim Install Directory:<span id="vh-dir"></span></p>
+    </div>
+</div>
+<div class="button-area">
+    <button id="set-path-to-valheim">Set Valheim Install Directory</button>
+    <button disabled id="start-valheim">Checking for Updates</button>
+    <button id="quit-app">Quit</button>
+</div>
+<script hidden>
     window.api.enableLaunchButton();
     window.api.startGame();
     window.api.sendValheimPath();
     window.api.displayInstalledModsVersion();
     window.api.displayLatestRelease();
     window.api.displayVhDir();
-
+    window.api.enableUpdateButton();
+    window.api.quitApp();
 </script>
 
 </body>

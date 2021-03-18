@@ -16,16 +16,16 @@ const createVersionFile = () => {
     console.log("Created version file with value: " + noVersion);
 };
 
-const getInstalledModsVersion = appDataPath => {
+const getInstalledModsVersion = vhInstallDir => {
 
-    entirePathToVersion = `${appDataPath}\\dag_mods_version.txt`;
+    entirePathToVersion = `${vhInstallDir}\\dag_mods_version.txt`;
     if (checkFileExistence(entirePathToVersion)) {
         let installedVersion = fs.readFileSync(entirePathToVersion);
         console.log("Installed version: " + installedVersion.toString());
         return installedVersion.toString();
     } else {
         createVersionFile();
-        getInstalledModsVersion(appDataPath);
+        getInstalledModsVersion(vhInstallDir);
     }
 };
 
