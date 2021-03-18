@@ -54,7 +54,8 @@ async function createWindow() {
     console.log("Main window created!")
 
     // Load index.html into the new BrowserWindow
-    await mainWindow.loadFile('index.html')
+    // DO NOT SET AWAIT!!!!!!!!!
+    mainWindow.loadFile('index.html')
 
     // winState.manage(mainWindow);
 
@@ -99,10 +100,7 @@ async function createWindow() {
         }
 
         console.log("Everything is up-to-date!");
-
         console.log("Ready to launch Valheim!")
-
-
 
         contents.send("display-latest-release", latestModsRelease);
         contents.send("display-vh-dir", vhInstallDir);
@@ -137,6 +135,9 @@ ipcMain.on('update-mods', event => {
     });
 });
 
+ipcMain.on('quit-app', event => {
+    app.quit();
+});
 
 // Electron `app` is ready
 app.on('ready', createWindow);

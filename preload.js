@@ -50,5 +50,11 @@ contextBridge.exposeInMainWorld("api", {
         ipcRenderer.on('display-vh-dir', (event, args) => {
             document.getElementById('vh-dir').innerHTML = args;
         });
+    },
+
+    quitApp() {
+        document.getElementById("quit-app").addEventListener('click', ev => {
+            ipcRenderer.send('quit-app');
+        });
     }
 });
