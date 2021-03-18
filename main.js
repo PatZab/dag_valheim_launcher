@@ -123,8 +123,8 @@ ipcMain.on("valheim-path-set", (e) => {
 ipcMain.on('launch-game', (event => {
     launchValheim(getInstallPath());
     setTimeout(() => {
-        app.quit();
-    }, 10000);
+        mainWindow.minimize();
+    }, 1000);
 }));
 
 ipcMain.on('update-mods', event => {
