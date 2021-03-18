@@ -35,8 +35,8 @@ async function createWindow() {
     // })
 
     mainWindow = new BrowserWindow({
-        width: 450,/*winState.defaultWidth,*/
-        height: 300,/*winState.defaultHeight,*/
+        width: 600,/*winState.defaultWidth,*/
+        height: 400,/*winState.defaultHeight,*/
         // x: winState.x,
         // y: winState.y,
         webPreferences: {

@@ -1,0 +1,122 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.7)), url("../resources/images/vh-background.jpg");
+
+}
+
+body {
+    height: 100%;
+    width: 100%;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    padding-top: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+header #dag-logo {
+    height: 100px;
+    width: 100px;
+}
+
+header #vh-logo {
+    height: 100px;
+    width: auto;
+}
+
+.info {
+    width: 300px;
+    height: 120px;
+    background: rgba(0, 0, 0, 0.6);
+    color: lightgrey;
+    margin-left: 0.75rem;
+    margin-top: 0.75rem;
+    padding: 0.5rem;
+    font-family: 'Blinker', sans-serif;
+}
+
+.info h3 {
+    color: deepskyblue;
+}
+
+.info div {
+    padding: 0.3rem 0 0 1rem;
+    font-family: 'Blinker', sans-serif;
+}
+
+#version-number {
+    float: right;
+
+}
+
+#release-version {
+    float: right;
+    color: limegreen;
+}
+
+#vh-dir {
+    padding-left: 0.5rem;
+    color: limegreen;
+    display: block;
+    float: right;
+
+}
+
+.button-area {
+
+    /*background-color: white;*/
+    margin-top: 0.75rem;
+}
+
+.button-area button {
+    border-radius: 0;
+}
+#start-valheim {
+    -webkit-app-region: none;
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    border: none;
+    height: 50px;
+    width: 200px;
+    background-color: limegreen;
+    color: white;
+    font-family: 'Blinker', sans-serif;
+    font-size: 1.2rem;
+}
+
+#quit-app {
+    -webkit-app-region: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    height: 30px;
+    width: 50px;
+    border: none;
+    background-color: orange;
+    font-family: 'Blinker', sans-serif;
+    font-weight: bold;
+}
+
+#set-path-to-valheim {
+    -webkit-app-region: none;
+    border: none;
+    width: 180px;
+    height: 20px;
+    position: relative;
+    left: 15px;
+    top: -5px;
+    font-family: 'Blinker', sans-serif;
+    background-color: slategrey;
+    color: lightgrey;
+}
+
