@@ -45,7 +45,8 @@ async function createWindow() {
         },
         // alwaysOnTop: true,
         resizable: false,
-        icon: ".\\build\\icon.ico"
+        icon: ".\\build\\icon.ico",
+        frame: false
     })
 
     const contents = mainWindow.webContents;
@@ -53,7 +54,7 @@ async function createWindow() {
     console.log("Main window created!")
 
     // Load index.html into the new BrowserWindow
-    mainWindow.loadFile('index.html')
+    await mainWindow.loadFile('index.html')
 
     // winState.manage(mainWindow);
 
@@ -82,25 +83,27 @@ async function createWindow() {
 
         vhInstallDir = getInstallPath();
 
-        installedModsVersion = getInstalledModsVersion(appDataPath);
+        installedModsVersion = getInstalledModsVersion(vhInstallDir);
+        contents.send("display-mods-version", installedModsVersion);
 
         latestModsRelease = await getLatestModsRelease();
+        contents.send("display-latest-release", latestModsRelease);
 
         let modsCheckValue = checkModsVersion(installedModsVersion, latestModsRelease);
 
         if (!modsCheckValue) {
-            console.log("Latest Mods have to be dowloaded and installed!")
-            // await downloadMods(vhInstallDir, latestModsRelease);
-            await downloadLatestMods(mainWindow, latestModsRelease, vhInstallDir);
-            writeVersionToFile(latestModsRelease);
+            console.log("Latest Mods have to be dowloaded and installed!");
+            contents.send("enable-update-button");
+        } else {
+            contents.send("enable-launch-button", "Launch button enabled!");
         }
 
         console.log("Everything is up-to-date!");
 
         console.log("Ready to launch Valheim!")
 
-        contents.send("enable-launch-button", "Launch button enabled!");
-        contents.send("display-mods-version", getInstalledModsVersion(appDataPath));
+
+
         contents.send("display-latest-release", latestModsRelease);
         contents.send("display-vh-dir", vhInstallDir);
 
@@ -115,17 +118,24 @@ async function createWindow() {
 
 ipcMain.on("valheim-path-set", (e) => {
     openInstallPath(mainWindow, homePath).then(() => {
-        mainWindow.webContents.send("display-vh-dir", vhInstallDir)
-        mainWindow.reload()
+        mainWindow.webContents.send("display-vh-dir", getInstallPath())
     });
 });
 
 ipcMain.on('launch-game', (event => {
     launchValheim(getInstallPath());
     setTimeout(() => {
-        mainWindow.minimize();
-    }, 2000);
+        app.quit();
+    }, 10000);
 }));
+
+ipcMain.on('update-mods', event => {
+    downloadLatestMods(mainWindow, latestModsRelease, vhInstallDir).then(() => {
+        writeVersionToFile(latestModsRelease);
+        mainWindow.webContents.send("enable-launch-button", "Launch button enabled!");
+        mainWindow.webContents.send("display-mods-version", getInstalledModsVersion(vhInstallDir));
+    });
+});
 
 
 // Electron `app` is ready
