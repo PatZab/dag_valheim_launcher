@@ -33,7 +33,7 @@ header #vh-logo {
     width: auto;
 }
 
-#info {
+.info {
     width: 300px;
     height: 140px;
     background: rgba(0, 0, 0, 0.6);
@@ -44,22 +44,22 @@ header #vh-logo {
     font-family: 'Blinker', sans-serif;
 }
 
-#info h3 {
+.info h3 {
     color: deepskyblue;
 }
 
 
 
-#info div {
+.info div {
     padding: 0.3rem 0 0 1rem;
     font-family: 'Blinker', sans-serif;
 }
 
-#info p {
+.info p {
     padding-top: 5px;
 }
 
-#info hr {
+.info hr {
     background-color: slategrey;
     border: none;
     height: 1px

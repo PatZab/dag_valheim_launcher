@@ -11,16 +11,16 @@
     <img alt="" id="dag-logo" src="./resources/images/Die%20Anstalt%20Logo.png">
     <img alt="" id="vh-logo" src="./resources/images/valheim-logo.png">
 </header>
-<section id="info">
+<div class="info">
     <h3>Information</h3>
     <div>
-        <p>Installed Mods Version: <span id="version-number">{{ installedVhVersion }}</span></p>
+        <p>Installed Mods Version: <span id="version-number"></span></p>
         <hr>
         <p>Latest Mods Release: <span id="release-version"></span></p>
         <hr>
         <p>Valheim Install Directory:<span id="vh-dir"></span></p>
     </div>
-</section>
+</div>
 <div class="button-area">
     <button id="set-path-to-valheim">Set Valheim Install Directory</button>
     <button disabled id="start-valheim">Checking for Updates</button>
@@ -30,15 +30,15 @@
     <p id="app-version"></p>
 </div>
 <script hidden>
-  window.api.enableLaunchButton();
-  window.api.startGame();
-  window.api.sendValheimPath();
-  window.api.usingVue();
-  window.api.displayLatestRelease();
-  window.api.displayVhDir();
-  window.api.enableUpdateButton();
-  window.api.quitApp();
-  window.api.displayAppVersion();
+    window.api.enableLaunchButton();
+    window.api.startGame();
+    window.api.sendValheimPath();
+    window.api.displayInstalledModsVersion();
+    window.api.displayLatestRelease();
+    window.api.displayVhDir();
+    window.api.enableUpdateButton();
+    window.api.quitApp();
+    window.api.displayAppVersion();
 </script>
 
 </body>
