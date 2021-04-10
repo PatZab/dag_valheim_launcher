@@ -30,7 +30,7 @@ const getInstalledModsVersion = vhInstallDir => {
 };
 
 const checkModsVersion = (installedModsVersion, latestModsRelease) => {
-    if (!(installedModsVersion === latestModsRelease)) {
+    if (installedModsVersion < latestModsRelease) {
         console.log("Mods versions are not equal.");
         return false;
     } else {
@@ -47,6 +47,7 @@ const getLatestModsRelease = async () => {
             repo: 'Die_Anstalt_Gaming_Valheim'
         }
     );
+
     console.log("Latest Mods Release: " + latestRelease.data.tag_name);
     return latestRelease.data.tag_name;
 }
